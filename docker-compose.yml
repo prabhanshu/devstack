@@ -136,7 +136,7 @@ services:
       - "18130:18130"
 
   lms:
-    command: bash -c 'source /edx/app/edxapp/edxapp_env && while true; do python /edx/app/edxapp/edx-platform/manage.py lms runserver 0.0.0.0:18000 --settings devstack_docker; sleep 2; done'
+    command: bash -c 'source /edx/app/edxapp/edxapp_env && pip install ptvsd && while true; do python -m ptvsd --host 0.0.0.0 --port 3000 --wait /edx/app/edxapp/edx-platform/manage.py lms runserver 0.0.0.0:18000 --noreload --settings devstack_docker; done'
     container_name: edx.devstack.lms
     hostname: lms.devstack.edx
     depends_on:
@@ -157,6 +157,7 @@ services:
     ports:
       - "18000:18000"
       - "19876:19876" # JS test debugging
+      - "3000:3000"
       # - "18003:18003"
       # - "18031:18031"
     volumes:
@@ -184,7 +185,7 @@ services:
       ELASTICSEARCH_URL: "http://edx.devstack.elasticsearch:9200"
 
   studio:
-    command: bash -c 'source /edx/app/edxapp/edxapp_env && while true; do python /edx/app/edxapp/edx-platform/manage.py cms runserver 0.0.0.0:18010 --settings devstack_docker; sleep 2; done'
+    command: bash -c 'source /edx/app/edxapp/edxapp_env && pip install ptvsd && while true; do python -m ptvsd --host 0.0.0.0 --port 3010 --wait /edx/app/edxapp/edx-platform/manage.py cms runserver 0.0.0.0:18010 --noreload --settings devstack_docker; done'
     container_name: edx.devstack.studio
     hostname: studio.devstack.edx
     depends_on:
@@ -205,6 +206,7 @@ services:
     ports:
       - "18010:18010"
       - "19877:19877" # JS test debugging
+      - "3010:3010"
       # - "18103:18103"
       # - "18131:18131"
     volumes:
