@@ -627,6 +627,53 @@ devpi Caching
 LMS and Studio use a devpi container to cache PyPI dependencies, which speeds up several Devstack operations.
 See the `devpi documentation`_.
 
+Debugging using VS Code
+-----------------------
+1. Install ptvsd
+
+.. code:: sh
+
+   pip install ptvsd
+
+2. Open your edx-platform project in Visual Studio Code. Add below configuration to launch.json file.
+
+.. code-block:: http
+
+    {
+        "name": "Remote Django App LMS",
+        "type": "python",
+        "request": "attach",
+        "pathMappings": [
+            {
+                "localRoot": "${workspaceFolder}",
+                "remoteRoot": "/edx/app/edxapp/edx-platform"
+            }
+        ],
+        "port": 3000,
+        "host": "0.0.0.0"
+    },
+    {
+        "name": "Remote Django App CMS",
+        "type": "python",
+        "request": "attach",
+        "pathMappings": [
+            {
+                "localRoot": "${workspaceFolder}",
+                "remoteRoot": "/edx/app/edxapp/edx-platform"
+            }
+        ],
+        "port": 3010,
+        "host": "0.0.0.0"
+    }
+
+3. To start your edx services in debug mode:
+
+.. code:: sh
+
+   make dev.up.debug
+
+4. Start your debugging by selecting any of the two launch configuration mentioned above from the Visual Studio Code
+
 Debugging using PDB
 -------------------
 
