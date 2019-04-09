@@ -636,7 +636,7 @@ Debugging using VS Code
 
    pip install ptvsd
 
-2. To your launch.json, add this:
+2. Open your edx-platform project in Visual Studio Code. Add below configuration to launch.json file.
 
 .. code-block:: http
 
@@ -667,6 +667,13 @@ Debugging using VS Code
         "host": "0.0.0.0"
     }
 
+3. To start your edx services in debug mode:
+
+.. code:: sh
+
+   make dev.up.debug
+
+4. Start your debugging by selecting any of the two launch configuration mentioned above from the Visual Studio Code
 
 Debugging using PDB
 -------------------
